@@ -1,13 +1,6 @@
-functionsDirectory = "C:\\Users\\User\\OneDrive\\fotos fone antigo\\OneDrive\\Desktop\\MEU SITE\\netlify\\functions"
-functionsDirectoryOrigin = "config"
-headersOrigin = "config"
-redirectsOrigin = "config"
-plugins = []
-
 [build]
-publish = "C:\\Users\\User\\OneDrive\\fotos fone antigo\\OneDrive\\Desktop\\MEU SITE"
-publishOrigin = "config"
-functions = "C:\\Users\\User\\OneDrive\\fotos fone antigo\\OneDrive\\Desktop\\MEU SITE\\netlify\\functions"
+publish = "."
+functions = "netlify/functions"
 
 [build.environment]
 
