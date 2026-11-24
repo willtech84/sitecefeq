@@ -1,0 +1,13 @@
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://cefeqsc.net.br/sitemap.xml
+
+# Bloquear áreas administrativas
+Disallow: /admin.html
+Disallow: /admin.js
+Disallow: /admin.css
+
+# Permitir imagens
+Allow: /img/

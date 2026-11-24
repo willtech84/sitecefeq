@@ -1,0 +1,8 @@
+# Redirecionamentos do Netlify
+# Remove index.html da URL
+
+# Redirecionar /index.html para /
+/index.html    /    301
+
+# Redirecionar /index para /
+/index    /    301

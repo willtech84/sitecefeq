@@ -1,0 +1,479 @@
+ 
+
+
+ 
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5, user-scalable=yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <title>Painel Admin</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="admin.css">
+</head>
+<body>
+
+<header class="admin-header">
+  <h1>Painel Administrativo</h1>
+  <span>Gerenciamento de Produtos</span>
+</header>
+
+<div class="admin-tabs">
+  <button class="tab-btn active" data-tab="add-product">Cadastrar Produto</button>
+  <button class="tab-btn" data-tab="edit-products">Editar Produtos</button>
+  <button class="tab-btn" data-tab="categories">Categorias</button>
+  <button class="tab-btn" data-tab="brands">Marcas</button>
+  <button class="tab-btn" data-tab="import-export">Importar/Exportar</button>
+  <button class="tab-btn" data-tab="statistics">Estatísticas</button>
+</div>
+
+<main class="admin-content">
+
+<!-- CADASTRAR -->
+<section id="add-product" class="tab active">
+  <div class="product-form">
+    <h2>Cadastrar Produto</h2>
+
+    <label>Nome</label>
+    <input id="name">
+
+    <label>Preço à Vista <span style="color: red;">*</span></label>
+    <input id="priceCash" type="text" placeholder="Digite o preço à vista (ex: 99,99 ou 99.99)" inputmode="decimal" required>
+    <small style="color: #666; font-size: 12px;">Preço para pagamento à vista (dinheiro, PIX, débito)</small>
+
+    <label>Preço Promocional (Opcional)</label>
+    <input id="promotionalPrice" type="text" placeholder="Digite o preço (ex: 79,99) ou desconto (ex: 10%) - opcional" inputmode="decimal">
+    <small style="color: #666; font-size: 12px;">Digite o preço promocional ou uma porcentagem de desconto (ex: 10% para 10% de desconto). O desconto será calculado automaticamente.</small>
+
+    <label>Preço Parcelado</label>
+    <input id="priceInstallment" type="text" placeholder="Digite o preço parcelado (ex: 110,99 ou 110.99)" inputmode="decimal">
+    <small style="color: #666; font-size: 12px;">Preço total quando parcelado</small>
+
+    <label>Número Máximo de Parcelas <span style="color: red;">*</span></label>
+    <input id="maxInstallments" type="number" placeholder="12" min="1" max="24" value="12" required>
+    <small style="color: #666; font-size: 12px;">Número máximo de parcelas permitidas (ex: 12x). Valor padrão: 12 parcelas</small>
+
+    <label>Preço (Legado - manter para compatibilidade)</label>
+    <input id="price" type="text" placeholder="Digite o preço (ex: 1998,50 ou 1998.50)" inputmode="decimal" style="display: none;">
+
+    <label>Descrição</label>
+    <textarea id="description" placeholder="Digite a descrição do produto ou use o botão 'Ficha Técnica' abaixo para criar uma tabela de especificações"></textarea>
+
+    <label>Código do Produto <span style="color: red;">*</span></label>
+    <input id="productCode" type="text" placeholder="Ex: 2373, PROD-001, etc." required>
+    <small style="color: #666; font-size: 12px;">Este código ficará oculto no site e aparecerá apenas na mensagem do WhatsApp quando o pedido for finalizado</small>
+
+    <label>Categoria</label>
+    <select id="category"></select>
+
+    <label>Marca</label>
+    <select id="brand">
+      <option value="">Selecione uma marca</option>
+    </select>
+    <small style="color: #666; font-size: 12px;">Selecione uma marca existente ou crie uma nova na aba "Marcas"</small>
+
+    <label>Disponibilidade</label>
+    <select id="available">
+      <option value="true">Disponível</option>
+      <option value="false">Indisponível</option>
+    </select>
+
+    <label>Destaque</label>
+    <select id="featured">
+      <option value="true">Sim</option>
+      <option value="false">Não</option>
+    </select>
+
+    <button type="button" onclick="openFichaTecnicaEditor()" style="padding: 12px 20px; background: #2563eb; color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: 600; margin: 8px 0 16px 0; display: flex; align-items: center; gap: 8px; width: 100%; justify-content: center;">
+      <i class="fa-solid fa-table"></i> Ficha Técnica
+    </button>
+    <small style="color: #666; font-size: 12px; display: block; margin-top: -12px; margin-bottom: 16px;">
+      💡 <strong>Dica:</strong> Clique em "Ficha Técnica" para criar uma tabela de especificações de forma fácil!
+    </small>
+
+    <label>Imagens <span class="image-count-info">(Você pode adicionar várias fotos)</span></label>
+    <div class="image-upload-container">
+      <div class="image-upload-area" id="imageUploadArea">
+        <i class="fa-solid fa-images"></i>
+        <p>Clique ou arraste <strong>várias imagens</strong> aqui</p>
+        <span>Formatos: JPG, PNG, GIF, WEBP (máx. 5MB cada) • As imagens serão automaticamente convertidas para WebP para melhor performance</span>
+      </div>
+      <input id="image" type="file" multiple accept="image/*" style="display: none;">
+      <div id="previewImages" class="preview-images"></div>
+      <div class="image-upload-hint">
+        <i class="fa-solid fa-info-circle"></i>
+        <span>Dica: Segure Ctrl (Windows) ou Cmd (Mac) para selecionar múltiplas imagens</span>
+      </div>
+    </div>
+
+    <div style="display: flex; gap: 10px; margin-top: 20px;">
+      <button onclick="showProductPreview()" type="button" style="flex: 1; padding: 12px; background: #6366f1; color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: 600;">
+        <i class="fa-solid fa-eye"></i> Visualizar Antes de Salvar
+      </button>
+      <button onclick="saveProduct()" style="flex: 1;">Salvar Produto</button>
+    </div>
+  </div>
+</section>
+
+<!-- EDITAR -->
+<section id="edit-products" class="tab">
+  <div class="edit-products-header">
+    <h2>Editar Produtos</h2>
+    <p class="edit-products-subtitle">Busque, filtre e gerencie seus produtos</p>
+  </div>
+  <div class="filters-container">
+    <div class="search-wrapper">
+      <i class="fa-solid fa-magnifying-glass search-icon"></i>
+      <input id="searchInput" class="search-input" placeholder="Pesquisar por nome, código, descrição ou categoria...">
+    </div>
+    <div class="filters-row">
+      <select id="filterBrand" class="filter-select">
+        <option value="">🏷️ Todas as Marcas</option>
+      </select>
+      <select id="filterAvailable" class="filter-select" onchange="updateFilters()">
+        <option value="all">📦 Todos os Status</option>
+        <option value="available">✅ Apenas Disponíveis</option>
+        <option value="unavailable">❌ Apenas Indisponíveis</option>
+      </select>
+      <select id="sortBy" class="filter-select" onchange="updateSorting()">
+        <option value="name">🔤 Ordenar por Nome</option>
+        <option value="price">💰 Ordenar por Preço</option>
+        <option value="category">📁 Ordenar por Categoria</option>
+        <option value="date">📅 Ordenar por Data</option>
+      </select>
+      <button id="sortOrderBtn" onclick="toggleSortOrder()" class="filter-btn" title="Alternar ordem (Crescente/Decrescente)">
+        <i class="fa-solid fa-arrow-up"></i>
+      </button>
+      <button id="filterDestaques" onclick="toggleDestaquesFilter()" class="filter-btn">
+        <i class="fa-solid fa-star"></i> <span>Apenas Destaques</span>
+      </button>
+    </div>
+    <div class="filters-row" style="margin-top: 10px;">
+      <input type="number" id="filterMinPrice" class="filter-select" placeholder="Preço mínimo (R$)" step="0.01" min="0" oninput="updateFilters()" style="flex: 1;">
+      <input type="number" id="filterMaxPrice" class="filter-select" placeholder="Preço máximo (R$)" step="0.01" min="0" oninput="updateFilters()" style="flex: 1;">
+      <button onclick="clearAdvancedFilters()" class="filter-btn" style="background: #6b7280;">
+        <i class="fa-solid fa-eraser"></i> Limpar Filtros
+      </button>
+    </div>
+  </div>
+  <div id="list"></div>
+</section>
+
+<!-- CATEGORIAS -->
+<section id="categories" class="tab">
+  <h2>Categorias</h2>
+
+  <input id="newCategory" placeholder="Nova categoria">
+  <button onclick="addCategory()">Adicionar</button>
+
+  <div id="categoryList"></div>
+</section>
+
+<!-- MARCAS -->
+<section id="brands" class="tab">
+  <h2>Marcas</h2>
+
+  <input id="newBrand" placeholder="Nova marca">
+  <button onclick="addBrand()">Adicionar</button>
+
+  <div id="brandList"></div>
+</section>
+
+<!-- IMPORTAR/EXPORTAR -->
+<section id="import-export" class="tab">
+  <h2>Importar / Exportar Produtos</h2>
+  <p style="color: #666; margin-bottom: 30px;">Edite vários produtos em uma planilha e importe o arquivo CSV. Produtos com o mesmo código serão atualizados.</p>
+  
+  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin-bottom: 30px;">
+    <div style="border: 2px dashed #3b82f6; border-radius: 12px; padding: 30px; text-align: center; background: #eff6ff;">
+      <i class="fa-solid fa-download" style="font-size: 48px; color: #3b82f6; margin-bottom: 15px;"></i>
+      <h3 style="margin: 0 0 10px 0;">Exportar Produtos</h3>
+      <p style="color: #666; margin-bottom: 20px;">Baixe todos os produtos em CSV para abrir e editar em uma planilha.</p>
+      <button onclick="exportProducts()" style="padding: 12px 24px; background: #3b82f6; color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: 600;">
+        <i class="fa-solid fa-file-csv"></i> Exportar CSV
+      </button>
+      <button onclick="downloadProductsCsvTemplate()" style="padding: 12px 24px; margin-top: 10px; background: #fff; color: #2563eb; border: 1px solid #3b82f6; border-radius: 8px; cursor: pointer; font-weight: 600;">
+        <i class="fa-solid fa-file-arrow-down"></i> Baixar modelo vazio
+      </button>
+    </div>
+    
+    <div style="border: 2px dashed #10b981; border-radius: 12px; padding: 30px; text-align: center; background: #f0fdf4;">
+      <i class="fa-solid fa-upload" style="font-size: 48px; color: #10b981; margin-bottom: 15px;"></i>
+      <h3 style="margin: 0 0 10px 0;">Importar Produtos</h3>
+      <p style="color: #666; margin-bottom: 20px;">Importe uma planilha CSV. Backups JSON antigos também são aceitos.</p>
+      <input type="file" id="importFile" accept=".csv,.json,text/csv,application/json" style="display: none;" onchange="importProducts(event)">
+      <button onclick="document.getElementById('importFile').click()" style="padding: 12px 24px; background: #10b981; color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: 600;">
+        <i class="fa-solid fa-file-import"></i> Escolher CSV ou backup JSON
+      </button>
+      <p style="font-size: 12px; color: #666; margin-top: 10px;">Produtos com código existente serão atualizados; novos códigos serão cadastrados.</p>
+    </div>
+  </div>
+  
+  <div style="overflow-x: auto; margin-top: 20px;">
+    <h3>Colunas do CSV</h3>
+    <p style="color: #666;">O arquivo usa ponto e vírgula como separador e vírgula nos centavos. Não altere os nomes da primeira linha.</p>
+    <table style="width: 100%; border-collapse: collapse; min-width: 600px;">
+      <thead>
+        <tr style="background: #f3f4f6; text-align: left;">
+          <th style="padding: 10px; border: 1px solid #ddd;">Coluna</th>
+          <th style="padding: 10px; border: 1px solid #ddd;">O que preencher</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td style="padding: 8px; border: 1px solid #ddd;"><code>product_code</code></td><td style="padding: 8px; border: 1px solid #ddd;">Código único obrigatório; identifica produtos a atualizar.</td></tr>
+        <tr><td style="padding: 8px; border: 1px solid #ddd;"><code>name</code>, <code>description</code></td><td style="padding: 8px; border: 1px solid #ddd;">Nome obrigatório e descrição do produto.</td></tr>
+        <tr><td style="padding: 8px; border: 1px solid #ddd;"><code>price_cash</code>, <code>promotional_price</code>, <code>price_installment</code></td><td style="padding: 8px; border: 1px solid #ddd;">Preços em reais; use, por exemplo, 99,90. Preço à vista é obrigatório.</td></tr>
+        <tr><td style="padding: 8px; border: 1px solid #ddd;"><code>max_installments</code></td><td style="padding: 8px; border: 1px solid #ddd;">Número máximo de parcelas (padrão: 12).</td></tr>
+        <tr><td style="padding: 8px; border: 1px solid #ddd;"><code>category</code>, <code>brand</code></td><td style="padding: 8px; border: 1px solid #ddd;">Categoria e marca.</td></tr>
+        <tr><td style="padding: 8px; border: 1px solid #ddd;"><code>available</code>, <code>featured</code></td><td style="padding: 8px; border: 1px solid #ddd;">Use sim/não ou true/false.</td></tr>
+        <tr><td style="padding: 8px; border: 1px solid #ddd;"><code>images</code></td><td style="padding: 8px; border: 1px solid #ddd;">URLs separadas pelo caractere |. Imagens em branco não removem imagens existentes.</td></tr>
+      </tbody>
+    </table>
+    <p style="color: #666; font-size: 13px;">Dica: exporte primeiro para obter um CSV pronto para edição. Campos de descrição podem conter texto longo; mantenha o CSV salvo em UTF-8.</p>
+  </div>
+</section>
+
+<!-- ESTATÍSTICAS -->
+<section id="statistics" class="tab">
+  <div class="statistics-container">
+    <h2><i class="fa-solid fa-chart-line"></i> Estatísticas do Site</h2>
+    
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-icon">
+          <i class="fa-solid fa-users"></i>
+        </div>
+        <div class="stat-content">
+          <h3 id="totalVisitors">-</h3>
+          <p>Total de Visitantes</p>
+        </div>
+      </div>
+      
+      <div class="stat-card">
+        <div class="stat-icon">
+          <i class="fa-solid fa-calendar-day"></i>
+        </div>
+        <div class="stat-content">
+          <h3 id="todayVisitors">-</h3>
+          <p>Visitantes Hoje</p>
+        </div>
+      </div>
+      
+      <div class="stat-card">
+        <div class="stat-icon">
+          <i class="fa-solid fa-calendar-week"></i>
+        </div>
+        <div class="stat-content">
+          <h3 id="weekVisitors">-</h3>
+          <p>Visitantes Esta Semana</p>
+        </div>
+      </div>
+      
+      <div class="stat-card">
+        <div class="stat-icon">
+          <i class="fa-solid fa-calendar"></i>
+        </div>
+        <div class="stat-content">
+          <h3 id="monthVisitors">-</h3>
+          <p>Visitantes Este Mês</p>
+        </div>
+      </div>
+      
+      <div class="stat-card">
+        <div class="stat-icon" style="background: linear-gradient(135deg, #16a34a 0%, #15803d 100%);">
+          <i class="fa-solid fa-shopping-cart"></i>
+        </div>
+        <div class="stat-content">
+          <h3 id="totalOrders">-</h3>
+          <p>Compras Finalizadas</p>
+        </div>
+      </div>
+      
+      <div class="stat-card">
+        <div class="stat-icon" style="background: linear-gradient(135deg, #16a34a 0%, #15803d 100%);">
+          <i class="fa-solid fa-calendar-day"></i>
+        </div>
+        <div class="stat-content">
+          <h3 id="todayOrders">-</h3>
+          <p>Compras Hoje</p>
+        </div>
+      </div>
+      
+      <div class="stat-card">
+        <div class="stat-icon" style="background: linear-gradient(135deg, #16a34a 0%, #15803d 100%);">
+          <i class="fa-solid fa-calendar-week"></i>
+        </div>
+        <div class="stat-content">
+          <h3 id="weekOrders">-</h3>
+          <p>Compras Esta Semana</p>
+        </div>
+      </div>
+      
+      <div class="stat-card">
+        <div class="stat-icon" style="background: linear-gradient(135deg, #16a34a 0%, #15803d 100%);">
+          <i class="fa-solid fa-dollar-sign"></i>
+        </div>
+        <div class="stat-content">
+          <h3 id="totalRevenue">-</h3>
+          <p>Receita Total</p>
+        </div>
+      </div>
+    </div>
+    
+    <div class="stats-actions">
+      <button onclick="loadStatistics()" class="btn-refresh">
+        <i class="fa-solid fa-rotate"></i> Atualizar Estatísticas
+      </button>
+      <button onclick="exportStatistics()" class="btn-export">
+        <i class="fa-solid fa-download"></i> Exportar Dados
+      </button>
+    </div>
+    
+    <div class="visitors-chart">
+      <h3>Últimas Visitas</h3>
+      <div id="recentVisitors" class="recent-visitors-list"></div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- MODAL EDITOR DE FICHA TÉCNICA -->
+<div id="fichaTecnicaModal" class="ficha-tecnica-modal-overlay hidden" style="display: none !important; visibility: hidden !important; opacity: 0 !important; pointer-events: none !important; z-index: -1 !important;">
+  <div class="ficha-tecnica-modal-box">
+    <div class="ficha-tecnica-header">
+      <div class="ficha-tecnica-title">
+        <i class="fa-solid fa-table"></i>
+        <h2>Editor de Ficha Técnica</h2>
+      </div>
+      <button class="ficha-tecnica-close" onclick="closeFichaTecnicaEditor()" title="Fechar">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+    </div>
+    
+    <div class="ficha-tecnica-content">
+      <div class="ficha-tecnica-editor">
+        <!-- Área de Colagem Rápida -->
+        <div class="ficha-tecnica-paste-area">
+          <div class="ficha-paste-header">
+            <i class="fa-solid fa-paste"></i>
+            <span><strong>Colagem Rápida:</strong> Cole uma tabela do Google/Excel aqui</span>
+          </div>
+          <textarea 
+            id="fichaTecnicaPaste" 
+            class="ficha-paste-textarea" 
+            placeholder="Cole aqui a tabela copiada (ex: Modelo    A10&#10;Marca    ESAB&#10;Tipo    Automática)"
+            rows="4"
+          ></textarea>
+          <button type="button" onclick="parsePastedTable()" class="ficha-paste-btn">
+            <i class="fa-solid fa-magic"></i> Converter para Tabela
+          </button>
+        </div>
+        
+        <div class="ficha-tecnica-labels">
+          <span class="ficha-label">Característica</span>
+          <span class="ficha-label">Especificação Técnica</span>
+          <span class="ficha-label-actions">Ações</span>
+        </div>
+        <div id="fichaTecnicaItems" class="ficha-tecnica-items">
+          <!-- Itens serão adicionados aqui dinamicamente -->
+        </div>
+        <button type="button" onclick="addFichaTecnicaItem()" class="ficha-tecnica-add-btn">
+          <i class="fa-solid fa-plus"></i> Adicionar Linha
+        </button>
+      </div>
+      
+      <div class="ficha-tecnica-preview">
+        <h3><i class="fa-solid fa-eye"></i> Preview da Tabela</h3>
+        <div id="fichaTecnicaPreview" class="ficha-tecnica-preview-content">
+          <p class="ficha-preview-empty">Adicione linhas para ver o preview</p>
+        </div>
+      </div>
+    </div>
+    
+    <div class="ficha-tecnica-footer">
+      <button type="button" onclick="closeFichaTecnicaEditor()" class="ficha-tecnica-btn-cancel">
+        <i class="fa-solid fa-times"></i> Cancelar
+      </button>
+      <button type="button" onclick="insertFichaTecnica()" class="ficha-tecnica-btn-insert">
+        <i class="fa-solid fa-check"></i> Inserir na Descrição
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- PROTEÇÃO DE ACESSO -->
+<script>
+  // Verificar se está autenticado
+  function checkAdminAuth() {
+    const authenticated = sessionStorage.getItem('admin_authenticated');
+    const loginTime = sessionStorage.getItem('admin_login_time');
+    
+    // Verificar se está autenticado
+    if (authenticated !== 'true') {
+      alert('🔒 Acesso negado! Você precisa fazer login primeiro.');
+      window.location.href = '/';
+      return false;
+    }
+    
+    // Verificar se o login não expirou (24 horas)
+    if (loginTime) {
+      const loginTimestamp = parseInt(loginTime);
+      const now = Date.now();
+      const hoursSinceLogin = (now - loginTimestamp) / (1000 * 60 * 60);
+      
+      if (hoursSinceLogin > 24) {
+        alert('⏰ Sua sessão expirou. Por favor, faça login novamente.');
+        sessionStorage.removeItem('admin_authenticated');
+        sessionStorage.removeItem('admin_login_time');
+        window.location.href = '/';
+        return false;
+      }
+    }
+    
+    return true;
+  }
+  
+  // Verificar autenticação ao carregar a página
+  if (!checkAdminAuth()) {
+    // Redirecionamento já foi feito na função
+  }
+  
+  // Botão de logout (opcional - pode adicionar no header)
+  function logoutAdmin() {
+    if (confirm('Deseja realmente sair do painel administrativo?')) {
+      sessionStorage.removeItem('admin_authenticated');
+      sessionStorage.removeItem('admin_login_time');
+      window.location.href = '/';
+    }
+  }
+  
+  window.logoutAdmin = logoutAdmin;
+</script>
+
+<!-- Supabase SDK -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<!-- Configuração do Supabase (usa chave anon com RLS) -->
+<script src="/.netlify/functions/supabase-config"></script>
+<script src="supabase.js"></script>
+<!-- Se precisar usar Service Role Key localmente, crie supabase-admin-local.js (não commitado) -->
+<script>
+  // Tentar carregar configuração local (apenas para desenvolvimento)
+  // Este arquivo NÃO deve ser commitado no git
+  const localAdminScript = document.createElement('script');
+  localAdminScript.src = 'supabase-admin-local.js';
+  localAdminScript.onerror = () => {
+    console.log('ℹ️ Usando configuração padrão (chave anon com RLS)');
+  };
+  document.head.appendChild(localAdminScript);
+</script>
+<script src="admin.js"></script>
+</body>
+</html>

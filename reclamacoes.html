@@ -1,0 +1,695 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5, user-scalable=yes" />
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <title>Central de Reclamações — Cefeq Ferramentas</title>
+  <meta name="description" content="Central de Reclamações da Cefeq Ferramentas. Registre sua reclamação, solicite troca ou devolução. Atendimento rápido e eficiente para garantir sua satisfação.">
+  <meta name="robots" content="index, follow">
+  
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://cefeqsc.net.br/reclamacoes.html">
+  <meta property="og:title" content="Central de Reclamações — Cefeq Ferramentas">
+  <meta property="og:description" content="Central de Reclamações da Cefeq Ferramentas. Registre sua reclamação e seja atendido rapidamente.">
+  
+  <!-- Canonical URL -->
+  <link rel="canonical" href="https://cefeqsc.net.br/reclamacoes.html">
+
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="style.css">
+
+  <style>
+    body {
+      background: #f4f4f7;
+      padding-top: 150px;
+    }
+
+    .complaints-container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 40px 20px;
+    }
+
+    .complaints-header {
+      text-align: center;
+      margin-bottom: 50px;
+      padding: 40px 20px;
+      background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
+      border-radius: 20px;
+      color: #fff;
+      box-shadow: 0 10px 30px rgba(220, 38, 38, 0.3);
+    }
+
+    .complaints-header h1 {
+      font-size: 36px;
+      font-weight: 900;
+      margin: 0 0 10px 0;
+      color: #fff;
+    }
+
+    .complaints-header p {
+      font-size: 16px;
+      opacity: 0.9;
+      margin: 0;
+    }
+
+    .complaints-section {
+      background: #fff;
+      padding: 30px;
+      border-radius: 16px;
+      margin-bottom: 30px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    }
+
+    .complaints-section h2 {
+      font-size: 24px;
+      font-weight: 700;
+      color: #1f2937;
+      margin: 0 0 20px 0;
+      padding-bottom: 15px;
+      border-bottom: 3px solid #dc2626;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .complaints-section h2 i {
+      color: #dc2626;
+    }
+
+    .complaints-section h3 {
+      font-size: 18px;
+      font-weight: 600;
+      color: #374151;
+      margin: 25px 0 15px 0;
+    }
+
+    .complaints-section p {
+      font-size: 15px;
+      line-height: 1.8;
+      color: #4b5563;
+      margin: 0 0 15px 0;
+    }
+
+    .complaints-section ul {
+      margin: 15px 0;
+      padding-left: 25px;
+    }
+
+    .complaints-section li {
+      font-size: 15px;
+      line-height: 1.8;
+      color: #4b5563;
+      margin-bottom: 10px;
+    }
+
+    .complaint-form {
+      background: #fff;
+      padding: 30px;
+      border-radius: 16px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-group label {
+      display: block;
+      font-weight: 600;
+      color: #374151;
+      margin-bottom: 8px;
+      font-size: 14px;
+    }
+
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+      width: 100%;
+      padding: 12px 16px;
+      border: 2px solid #e5e7eb;
+      border-radius: 10px;
+      font-size: 15px;
+      font-family: inherit;
+      transition: all 0.3s ease;
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus,
+    .form-group select:focus {
+      outline: none;
+      border-color: #dc2626;
+      box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.1);
+    }
+
+    .form-group textarea {
+      min-height: 120px;
+      resize: vertical;
+    }
+
+    .form-group small {
+      display: block;
+      color: #6b7280;
+      font-size: 13px;
+      margin-top: 5px;
+    }
+
+    .submit-btn {
+      background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
+      color: #fff;
+      padding: 16px 32px;
+      border: none;
+      border-radius: 10px;
+      font-size: 16px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      width: 100%;
+      margin-top: 10px;
+    }
+
+    .submit-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(220, 38, 38, 0.4);
+    }
+
+    .info-box {
+      background: #fef3c7;
+      border-left: 4px solid #f59e0b;
+      padding: 20px;
+      border-radius: 10px;
+      margin: 20px 0;
+    }
+
+    .info-box p {
+      margin: 0;
+      color: #92400e;
+      font-size: 14px;
+    }
+
+    .contact-info {
+      background: #eff6ff;
+      border-left: 4px solid #2563eb;
+      padding: 20px;
+      border-radius: 10px;
+      margin: 20px 0;
+    }
+
+    .contact-info p {
+      margin: 8px 0;
+      color: #1e40af;
+      font-size: 14px;
+    }
+
+    .contact-info a {
+      color: #2563eb;
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    .contact-info a:hover {
+      text-decoration: underline;
+    }
+
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: #2563eb;
+      text-decoration: none;
+      font-weight: 600;
+      margin-bottom: 30px;
+      padding: 10px 20px;
+      background: #eff6ff;
+      border-radius: 10px;
+      transition: all 0.3s ease;
+    }
+
+    .back-link:hover {
+      background: #dbeafe;
+      transform: translateX(-5px);
+    }
+
+    @media (max-width: 768px) {
+      body {
+        padding-top: 120px;
+        -webkit-text-size-adjust: 100%;
+      }
+
+      .complaints-container {
+        padding: 20px 14px;
+      }
+
+      .complaints-header {
+        padding: 30px 16px;
+      }
+
+      .complaints-header h1 {
+        font-size: 24px;
+      }
+
+      .complaints-header p {
+        font-size: 14px;
+      }
+
+      .complaints-section,
+      .complaint-form {
+        padding: 20px 16px;
+        margin-bottom: 20px;
+      }
+
+      .complaints-section h2 {
+        font-size: 18px;
+        padding-bottom: 10px;
+      }
+
+      .complaints-section h3 {
+        font-size: 16px;
+        margin: 20px 0 12px 0;
+      }
+
+      .complaints-section p,
+      .complaints-section li {
+        font-size: 14px;
+        line-height: 1.6;
+      }
+
+      .form-group {
+        margin-bottom: 18px;
+      }
+
+      .form-group label {
+        font-size: 14px;
+        margin-bottom: 6px;
+      }
+
+      .form-group input,
+      .form-group textarea,
+      .form-group select {
+        font-size: 16px; /* Evita zoom no iOS */
+        padding: 14px 16px;
+        min-height: 48px; /* Touch target confortável */
+      }
+
+      .form-group textarea {
+        min-height: 120px;
+      }
+
+      .form-group small {
+        font-size: 12px;
+      }
+
+      .submit-btn {
+        padding: 16px;
+        font-size: 16px;
+        min-height: 52px;
+        touch-action: manipulation;
+      }
+
+      .info-box,
+      .contact-info {
+        padding: 16px;
+        font-size: 13px;
+      }
+
+      .back-link {
+        padding: 12px 16px;
+        font-size: 14px;
+      }
+    }
+  </style>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-MV98D6D7BK"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-MV98D6D7BK');
+  </script>
+  <!-- Meta Pixel Code -->
+  <script>
+  !function(f,b,e,v,n,t,s)
+  {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+  n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+  if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+  n.queue=[];t=b.createElement(e);t.async=!0;
+  t.src=v;s=b.getElementsByTagName(e)[0];
+  s.parentNode.insertBefore(t,s)}(window, document,'script',
+  'https://connect.facebook.net/en_US/fbevents.js');
+  fbq('init', '29561215813484280');
+  fbq('track', 'PageView');
+  </script>
+  <!-- End Meta Pixel Code -->
+</head>
+
+<body>
+<noscript><img height="1" width="1" style="display:none"
+  src="https://www.facebook.com/tr?id=29561215813484280&ev=PageView&noscript=1"
+  alt=""
+/></noscript>
+  <!-- HEADER -->
+  <header class="site-header">
+    <div class="header-container">
+      <div class="brand">
+        <div class="logo"></div>
+        <div class="brand-text">
+          <div class="title">Cefeq Ferramentas</div>
+          <div class="subtitle">Ferramentas & Acessórios</div>
+        </div>
+      </div>
+
+      <nav class="main-nav" aria-label="Menu principal">
+        <button class="nav-item" onclick="window.location.href='index.html'">
+          <i class="fa-solid fa-house"></i><span>Início</span>
+        </button>
+        <button class="nav-item" onclick="window.location.href='produtos.html'">
+          <i class="fa-solid fa-list"></i><span>Catálogo</span>
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <div class="complaints-container">
+    <a href="index.html" class="back-link">
+      <i class="fa-solid fa-arrow-left"></i> Voltar para o site
+    </a>
+
+    <div class="complaints-header">
+      <h1><i class="fa-solid fa-headset"></i> Central de Reclamações</h1>
+      <p>Seu canal direto de comunicação conosco</p>
+    </div>
+
+    <!-- INFORMAÇÕES DO FORNECEDOR -->
+    <div class="complaints-section">
+      <h2><i class="fa-solid fa-building"></i> Informações do Fornecedor</h2>
+      <p><strong>Razão Social:</strong> Cefeq Ferramentas</p>
+      <p><strong>CNPJ:</strong> 09.248.043/0001-65</p>
+      <p><strong>Endereço:</strong> Mafra, Santa Catarina, Brasil</p>
+      <p><strong>E-mail:</strong> <a href="mailto:faturamento@cefeqsc.com.br">faturamento@cefeqsc.com.br</a></p>
+    </div>
+
+    <!-- DIREITOS DO CONSUMIDOR -->
+    <div class="complaints-section">
+      <h2><i class="fa-solid fa-scale-balanced"></i> Seus Direitos como Consumidor</h2>
+      <p>De acordo com o Código de Defesa do Consumidor (CDC - Lei 8.078/90), você tem direito a:</p>
+      <ul>
+        <li><strong>Produto conforme:</strong> O produto deve corresponder exatamente ao que foi anunciado</li>
+        <li><strong>Arrependimento:</strong> Direito de desistir da compra em até 7 dias corridos, contados da data do recebimento do produto</li>
+        <li><strong>Troca e Devolução:</strong> Direito à troca ou devolução em caso de defeito ou não conformidade</li>
+        <li><strong>Reembolso:</strong> Em caso de devolução, o reembolso será efetuado em até 30 dias</li>
+        <li><strong>Informações claras:</strong> Todas as informações sobre o produto devem ser verdadeiras e completas</li>
+        <li><strong>Atendimento:</strong> Direito a um canal de atendimento eficiente e responsivo</li>
+      </ul>
+    </div>
+
+    <!-- GARANTIA -->
+    <div class="complaints-section">
+      <h2><i class="fa-solid fa-shield-halved"></i> Garantia dos Produtos</h2>
+      
+      <h3>Garantia Legal (CDC)</h3>
+      <p>Conforme o Código de Defesa do Consumidor (CDC - Lei 8.078/90), todos os produtos possuem:</p>
+      <ul>
+        <li><strong>Garantia contra vícios aparentes:</strong> 90 dias para produtos duráveis</li>
+        <li><strong>Garantia contra vícios ocultos:</strong> 90 dias contados a partir do conhecimento do defeito</li>
+        <li><strong>Garantia de adequação:</strong> O produto deve ser adequado ao fim a que se destina</li>
+      </ul>
+
+      <h3>Como Acionar a Garantia</h3>
+      <ol>
+        <li>Entre em contato conosco através deste formulário, WhatsApp ou e-mail</li>
+        <li>Informe o número do pedido e descreva o problema detalhadamente</li>
+        <li>Envie fotos ou vídeos do defeito (se aplicável)</li>
+        <li>Nossa equipe analisará e responderá em até 5 dias úteis</li>
+        <li>Após análise, ofereceremos: reparo, troca, devolução ou abatimento proporcional do preço</li>
+      </ol>
+
+      <div class="info-box" style="background: #fef3c7; border-left-color: #f59e0b;">
+        <p style="color: #92400e;"><i class="fa-solid fa-exclamation-triangle"></i> <strong>Atenção:</strong> A garantia não cobre desgaste natural, uso inadequado, danos por acidentes ou produtos modificados por terceiros.</p>
+      </div>
+    </div>
+
+    <!-- POLÍTICA DE TROCA E DEVOLUÇÃO -->
+    <div class="complaints-section">
+      <h2><i class="fa-solid fa-rotate-left"></i> Política de Troca e Devolução</h2>
+      
+      <h3>Prazo para Desistência</h3>
+      <p>Você tem até <strong>7 (sete) dias corridos</strong>, contados a partir da data de recebimento do produto, para desistir da compra, sem necessidade de justificativa.</p>
+
+      <h3>Condições para Troca/Devolução</h3>
+      <ul>
+        <li>Produto deve estar na embalagem original, sem uso e com todos os acessórios</li>
+        <li>Nota fiscal ou comprovante de compra deve estar presente</li>
+        <li>Produto com defeito de fabricação ou não conforme o anunciado</li>
+        <li>Produto danificado durante o transporte (deve ser comunicado imediatamente)</li>
+      </ul>
+
+      <h3>Processo de Devolução</h3>
+      <ol>
+        <li>Entre em contato conosco através deste formulário ou por e-mail</li>
+        <li>Informe o motivo da devolução e o número do pedido</li>
+        <li>Aguardar nossa resposta com as instruções de envio</li>
+        <li>Enviar o produto conforme instruções</li>
+        <li>Após recebermos e verificarmos, o reembolso será processado em até 30 dias</li>
+      </ol>
+
+      <h3>Reembolso</h3>
+      <p>O valor será reembolsado na mesma forma de pagamento utilizada na compra, em até <strong>30 (trinta) dias</strong> após o recebimento e verificação do produto devolvido.</p>
+    </div>
+
+    <!-- PRAZO E CONDIÇÕES DE ENTREGA -->
+    <div class="complaints-section">
+      <h2><i class="fa-solid fa-truck"></i> Prazo e Condições de Entrega</h2>
+      
+      <h3>Informações sobre Entrega</h3>
+      <p>O prazo e valor do frete são <strong>combinados diretamente com o vendedor</strong> através do WhatsApp no momento da finalização do pedido.</p>
+      
+      <h3>Como Funciona</h3>
+      <ul>
+        <li>Após adicionar produtos ao carrinho e preencher seus dados, você será direcionado ao WhatsApp</li>
+        <li>Nossa equipe entrará em contato para acordar o prazo e valor do frete</li>
+        <li>O prazo de entrega será informado e confirmado antes da confirmação do pedido</li>
+        <li>O prazo começa a contar a partir da confirmação do pagamento</li>
+      </ul>
+
+      <h3>Responsabilidades</h3>
+      <ul>
+        <li>O frete é de responsabilidade do cliente, salvo acordo em contrário</li>
+        <li>Em caso de atraso na entrega, o cliente será informado imediatamente</li>
+        <li>É importante verificar o produto no ato do recebimento</li>
+        <li>Danos durante o transporte devem ser comunicados imediatamente</li>
+      </ul>
+
+      <div class="info-box">
+        <p><i class="fa-solid fa-info-circle"></i> <strong>Dica:</strong> Mantenha o número do pedido e comprovante de pagamento para facilitar o acompanhamento da entrega.</p>
+      </div>
+    </div>
+
+    <!-- FORMULÁRIO DE RECLAMAÇÃO -->
+    <div class="complaint-form">
+      <h2 style="margin-top: 0;"><i class="fa-solid fa-paper-plane"></i> Enviar Reclamação</h2>
+      
+      <div class="info-box">
+        <p><i class="fa-solid fa-info-circle"></i> <strong>Importante:</strong> Responderemos sua reclamação em até <strong>5 (cinco) dias úteis</strong>. Em casos mais complexos, o prazo pode ser estendido, mas sempre manteremos você informado.</p>
+      </div>
+
+      <form id="complaintForm" onsubmit="handleComplaintSubmit(event)">
+        <div class="form-group">
+          <label for="name">Nome Completo *</label>
+          <input type="text" id="name" name="name" required>
+        </div>
+
+        <div class="form-group">
+          <label for="email">E-mail *</label>
+          <input type="email" id="email" name="email" required>
+          <small>Usaremos este e-mail para responder sua reclamação</small>
+        </div>
+
+        <div class="form-group">
+          <label for="phone">Telefone/WhatsApp *</label>
+          <input type="tel" id="phone" name="phone" required placeholder="(00) 00000-0000">
+        </div>
+
+        <div class="form-group">
+          <label for="cpf">CPF (opcional)</label>
+          <input type="text" id="cpf" name="cpf" placeholder="000.000.000-00">
+          <small>Opcional, mas ajuda na identificação do pedido</small>
+        </div>
+
+        <div class="form-group">
+          <label for="orderNumber">Número do Pedido (se houver)</label>
+          <input type="text" id="orderNumber" name="orderNumber" placeholder="Ex: PED-123456">
+        </div>
+
+        <div class="form-group">
+          <label for="complaintType">Tipo de Reclamação *</label>
+          <select id="complaintType" name="complaintType" required>
+            <option value="">Selecione...</option>
+            <option value="defeito">Produto com Defeito</option>
+            <option value="nao-conforme">Produto Não Conforme</option>
+            <option value="entrega">Problema com Entrega</option>
+            <option value="atendimento">Problema com Atendimento</option>
+            <option value="troca">Solicitação de Troca</option>
+            <option value="devolucao">Solicitação de Devolução</option>
+            <option value="reembolso">Solicitação de Reembolso</option>
+            <option value="outro">Outro</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="message">Descrição da Reclamação *</label>
+          <textarea id="message" name="message" required placeholder="Descreva detalhadamente sua reclamação, incluindo data do ocorrido, número do pedido (se houver) e qualquer informação relevante..."></textarea>
+          <small>Quanto mais detalhes, mais rápido poderemos resolver sua questão</small>
+        </div>
+
+        <button type="submit" class="submit-btn">
+          <i class="fa-solid fa-paper-plane"></i> Enviar Reclamação
+        </button>
+      </form>
+    </div>
+
+    <!-- CANAIS DE ATENDIMENTO -->
+    <div class="complaints-section">
+      <h2><i class="fa-solid fa-phone"></i> Outros Canais de Atendimento</h2>
+      
+      <div class="contact-info">
+        <p><i class="fa-solid fa-envelope"></i> <strong>E-mail:</strong> <a href="mailto:faturamento@cefeqsc.com.br">faturamento@cefeqsc.com.br</a></p>
+        <p><i class="fa-brands fa-whatsapp"></i> <strong>WhatsApp:</strong> Entre em contato através do botão WhatsApp no site</p>
+        <p><i class="fa-solid fa-clock"></i> <strong>Horário de Atendimento:</strong> Segunda a Sexta, 08:00 - 12:00 e 13:30 - 18:00 | Sábado, 08:00 - 12:00</p>
+      </div>
+    </div>
+
+    <!-- ÓRGÃOS DE PROTEÇÃO -->
+    <div class="complaints-section">
+      <h2><i class="fa-solid fa-shield-halved"></i> Órgãos de Proteção ao Consumidor</h2>
+      <p>Se não ficar satisfeito com nossa resposta, você pode recorrer aos seguintes órgãos:</p>
+      <ul>
+        <li><strong>PROCON:</strong> <a href="https://www.procon.sc.gov.br" target="_blank">www.procon.sc.gov.br</a> - Fundação de Proteção e Defesa do Consumidor de Santa Catarina</li>
+        <li><strong>PROCON Nacional:</strong> <a href="https://www.gov.br/procon" target="_blank">www.gov.br/procon</a></li>
+        <li><strong>Consumidor.gov.br:</strong> <a href="https://www.consumidor.gov.br" target="_blank">www.consumidor.gov.br</a> - Plataforma de resolução de conflitos online</li>
+        <li><strong>Justiça:</strong> Você também pode buscar seus direitos na Justiça, conforme previsto no Código de Defesa do Consumidor</li>
+      </ul>
+    </div>
+
+    <!-- PRAZO DE RESPOSTA -->
+    <div class="complaints-section">
+      <h2><i class="fa-solid fa-clock"></i> Prazo de Resposta</h2>
+      <p>Comprometemo-nos a responder todas as reclamações em até <strong>5 (cinco) dias úteis</strong>.</p>
+      <p>Em casos que exigem análise mais detalhada ou verificação com fornecedores, o prazo pode ser estendido, mas sempre manteremos você informado sobre o andamento.</p>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="footer-pro">
+      <div class="footer-container">
+        <div class="footer-col">
+          <h3>Cefeq Ferramentas</h3>
+          <p>CNPJ: 09.248.043/0001-65</p>
+          <p style="margin-top: 15px;">
+            <a href="index.html" style="color: #13d40d; text-decoration: none; margin-right: 15px;">Início</a>
+            <a href="privacidade.html" style="color: #13d40d; text-decoration: none; margin-right: 15px;">Política de Privacidade</a>
+            <a href="reclamacoes.html" style="color: #13d40d; text-decoration: none; margin-right: 15px;">Reclamações</a>
+            <a href="termos.html" style="color: #13d40d; text-decoration: none;">Termos de Uso</a>
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      © <span id="year"></span> Cefeq Ferramentas — Todos os direitos reservados
+    </div>
+  </footer>
+
+  <script>
+    // Ano atual no footer
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Formatação de CPF
+    document.getElementById('cpf').addEventListener('input', function(e) {
+      let value = e.target.value.replace(/\D/g, '');
+      if (value.length <= 11) {
+        value = value.replace(/(\d{3})(\d)/, '$1.$2');
+        value = value.replace(/(\d{3})(\d)/, '$1.$2');
+        value = value.replace(/(\d{3})(\d{1,2})$/, '$1-$2');
+        e.target.value = value;
+      }
+    });
+
+    // Formatação de telefone
+    document.getElementById('phone').addEventListener('input', function(e) {
+      let value = e.target.value.replace(/\D/g, '');
+      if (value.length <= 11) {
+        if (value.length <= 10) {
+          value = value.replace(/(\d{2})(\d)/, '($1) $2');
+          value = value.replace(/(\d{4})(\d)/, '$1-$2');
+        } else {
+          value = value.replace(/(\d{2})(\d)/, '($1) $2');
+          value = value.replace(/(\d{5})(\d)/, '$1-$2');
+        }
+        e.target.value = value;
+      }
+    });
+
+    // Envio do formulário
+    function handleComplaintSubmit(event) {
+      event.preventDefault();
+      
+      const formData = {
+        name: document.getElementById('name').value,
+        email: document.getElementById('email').value,
+        phone: document.getElementById('phone').value,
+        cpf: document.getElementById('cpf').value,
+        orderNumber: document.getElementById('orderNumber').value,
+        complaintType: document.getElementById('complaintType').value,
+        message: document.getElementById('message').value,
+        date: new Date().toLocaleString('pt-BR')
+      };
+
+      // Criar mensagem para WhatsApp
+      const whatsappMessage = `*NOVA RECLAMAÇÃO - CEFEQ FERRAMENTAS*
+
+*Dados do Cliente:*
+Nome: ${formData.name}
+E-mail: ${formData.email}
+Telefone: ${formData.phone}
+${formData.cpf ? `CPF: ${formData.cpf}` : ''}
+${formData.orderNumber ? `Pedido: ${formData.orderNumber}` : ''}
+
+*Tipo de Reclamação:*
+${formData.complaintType}
+
+*Descrição:*
+${formData.message}
+
+*Data/Hora:* ${formData.date}`;
+
+      // Codificar mensagem para URL
+      const encodedMessage = encodeURIComponent(whatsappMessage);
+      
+      // Abrir WhatsApp
+      const whatsappNumber = '554799341348'; // Número da empresa
+      const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodedMessage}`;
+      
+      window.open(whatsappUrl, '_blank');
+      
+      // Também enviar por e-mail (opcional - requer backend)
+      const emailSubject = encodeURIComponent(`Reclamação - ${formData.complaintType} - ${formData.name}`);
+      const emailBody = encodeURIComponent(whatsappMessage);
+      const emailUrl = `mailto:faturamento@cefeqsc.com.br?subject=${emailSubject}&body=${emailBody}`;
+      
+      // Mostrar confirmação
+      alert('✅ Sua reclamação será enviada via WhatsApp. Obrigado pelo contato! Responderemos em até 5 dias úteis.');
+      
+      // Limpar formulário
+      document.getElementById('complaintForm').reset();
+    }
+  </script>
+</body>
+</html>
